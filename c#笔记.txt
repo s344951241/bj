@@ -1,0 +1,22 @@
+1.垃圾回收机制：垃圾回收器，检测到进程托管堆满了以后，调用垃圾回收器检查对象的引用，删除没有引用的对象
+
+2. 值类型存储在堆栈中，引用类型存储在托管堆上
+
+3. 装箱是将值类型转换为引用类型,拆箱是将引用类型转换为值类型 
+
+4. class 是引用类型所有的类都最终继承自System.Object类，structs是值类型所有的结构都继承自System.ValueType类
+Struct有性能优势，Class有面向对象的扩展优势
+
+5. uint i = 1u,long i = 1L,float f = 0.1f ulong i = 2uL decimal d = 1.0M
+6. 字符串string是引用类型，string a = “1”赋值都会创建堆，而且string b = a是重新创建堆内存的
+
+7. @""后面的字符串都不会解释为转译字符
+8. switch case 中可加入goto case
+9. 字符串获取枚举=>(EnumClass)Enum.Parse(typeof(EnumClass),"name",true)
+10. ref：函数传递参数时使值传递变为引用传递
+11. out:作为引用传递同时可以不赋初值
+12. readonly可以在构造函数中赋值，const只能定义是赋初值
+13. WeakReference弱引用,垃圾回收器运行时就会回收 WeakReference a = new WeakReference(new A()).Target
+14. partial 部分类，把一个类拆开几个部分定义
+15. new 隐藏方法：在向上转型后，重写基类方法的调用的是派生类的方法，而隐藏基类调用的是基类的方法
+16. sealed 密封类和密封方法
