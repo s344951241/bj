@@ -20,3 +20,21 @@ Struct有性能优势，Class有面向对象的扩展优势
 14. partial 部分类，把一个类拆开几个部分定义
 15. new 隐藏方法：在向上转型后，重写基类方法的调用的是派生类的方法，而隐藏基类调用的是基类的方法
 16. sealed 密封类和密封方法
+17. 泛型不能赋空值null。有值类型，应使用default(T)
+18. 泛型约束：ClassB<T> where T:ClassA    T继承ClassA
+                        where T:new()     T必须有默认构造函数
+                        where T:struct    T为值类型
+                        where T:class     T为引用类型
+19. 泛型的继承必须指定基类的泛型类型
+20. 泛型类的静态成员只能在类的一个实例中共享
+21. 协变：方法参数类型（父参数传子类型）
+    抗变：方法返回类型（返回子类型服给父类型）
+    【InterfaceA<out T>协变           InterfaceA<in T>抗变】（用在泛型接口中）
+22. 可空值类型：  int? x  = null   ??用于空合并
+23. 数组是引用类型，实现Array接口
+24. yeild使用 与enumerator和foreach相关
+25. Tuple元组
+26. sizeof 确定栈中值类型需要的长度
+    typeof 返回表示特定类型的System.Type对象
+27. ReferenceEquals(a,b) 是否引用一个实例
+    
