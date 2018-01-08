@@ -58,3 +58,15 @@ Struct有性能优势，Class有面向对象的扩展优势
     typeof 返回表示特定类型的System.Type对象
 
 27. ReferenceEquals(a,b) 是否引用一个实例
+
+28. 委托 Action<in T>   不带返回值
+         Funtion<in T,out TResult>   带返回值
+
+29. 多播委托迭代方法列表，有一个方法抛出异常，委托迭代就会停止
+
+30. 事件：继承自EventArgs的参数类
+          event EventHandler<EventArgs> 定义事件列表
+          外部赋值，内部执行
+    弱事件： WeakEventManager
+
+31. 
