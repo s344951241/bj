@@ -57,7 +57,7 @@ Struct有性能优势，Class有面向对象的扩展优势
 26. sizeof 确定栈中值类型需要的长度
     typeof 返回表示特定类型的System.Type对象
 
-27. ReferenceEquals(a,b) 是否引用一个实例
+27. Object.ReferenceEquals(a,b) 是否引用一个实例
 
 28. 委托 Action<in T>   不带返回值
          Funtion<in T,out TResult>   带返回值
@@ -69,4 +69,66 @@ Struct有性能优势，Class有面向对象的扩展优势
           外部赋值，内部执行
     弱事件： WeakEventManager
 
-31. 
+31. StringBuilder 高效的替换，追加，删除字符但要指定分配多少内存（多次）
+        Length 指定字符串的实际长度
+        Capacity 指定字符串在分配的内存中的最大长度
+        MaxVale 最大容量
+
+32. 它是比较的栈里面的值是否相等(值比较)
+     Equals它比较的是堆里面的值是否相等(引用地址值比较)
+     Object.ReferenceEquals(obj1,obj2)它是比较的是地址是否相等
+
+33. ILookup<TKey,TValue> 一键对应多个值
+    IReadOnlyCollection<T>
+    IReadOnlyList<T>
+    IReadOnlyDictionary<TKey,TValue>  只读类型
+
+    ImmutableArray<T> 不变集合，add方法返回值为新集合，本身却没变
+
+---------------------------------------------------------------------
+class Person
+{
+    int id;
+    string name;
+    string info;
+}
+
+ILookup<string,Person> TheLookup;
+List<Person> list;
+
+list = new List<Person>{
+    new Person{id=1,name="xx",info="0000"}
+    new Person{id=2,name="ww",info="1111"}
+    new Person{id=3,name="xx",info="2222"}
+}
+
+TheLookup = list.ToLookup(p=>p.name);
+foreach(var group in TheLookup)
+{
+    foreach(var item in group)
+    {
+
+    }
+}
+----------------------------------------------------------------------
+34. LinkedList<T 双向列表
+
+35. 有序字典 SortedList<TKey,TValue>     内存少
+             SortedDictionary<TKey,TValue>    插入删除未排序的数据快
+
+36. 集，包含不重复的集合  HashSet<T>
+                          SortedSet<T>
+
+37. 位数组，BitArray 可以重新设置大小   Or()  And()   Xor()
+            BitVector32 结构基于栈，十六进制4位，的相关东西
+                BitVector32 bits = new BitVector32(0x79abcdef)
+                -->01111001101010111100110111101111
+
+38. 线程安全的集合，用tryxxx方法添加元素，返回值判断是否成功
+    ConcurrentQueue<T>
+    ConcurrentStack<T>
+    ConcurrentBag<T>
+    ConcurrentDictionary<TKey,TValue>
+    BlockingCollection<T>  添加或提取前，会阻塞线程并一直等待
+
+39. 在遍历数据结构的时候，是不可以修改原数据结构的
