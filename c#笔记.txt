@@ -74,7 +74,7 @@ Struct有性能优势，Class有面向对象的扩展优势
         Capacity 指定字符串在分配的内存中的最大长度
         MaxVale 最大容量
 
-32. 它是比较的栈里面的值是否相等(值比较)
+32.  ==它是比较的栈里面的值是否相等(值比较)
      Equals它比较的是堆里面的值是否相等(引用地址值比较)
      Object.ReferenceEquals(obj1,obj2)它是比较的是地址是否相等
 
@@ -111,7 +111,7 @@ foreach(var group in TheLookup)
     }
 }
 ----------------------------------------------------------------------
-34. LinkedList<T 双向列表
+34. LinkedList<T> 双向列表
 
 35. 有序字典 SortedList<TKey,TValue>     内存少
              SortedDictionary<TKey,TValue>    插入删除未排序的数据快
@@ -132,3 +132,9 @@ foreach(var group in TheLookup)
     BlockingCollection<T>  添加或提取前，会阻塞线程并一直等待
 
 39. 在遍历数据结构的时候，是不可以修改原数据结构的
+
+40. StackOverflowException--分配给栈的内存区域已满
+    EndOfStreamException--读到文件末尾抛出
+    OverflowException--int类型强转
+
+
