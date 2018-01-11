@@ -21,7 +21,7 @@ Struct有性能优势，Class有面向对象的扩展优势
 
 11. out:作为引用传递同时可以不赋初值
 
-12. readonly可以在构造函数中赋值，const只能定义是赋初值
+12. readonly(运行时常量)可以在构造函数中赋值，const（编译时常量）只能定义是赋初值
 
 13. WeakReference弱引用,垃圾回收器运行时就会回收 WeakReference a = new WeakReference(new A()).Target
 
@@ -137,4 +137,31 @@ foreach(var group in TheLookup)
     EndOfStreamException--读到文件末尾抛出
     OverflowException--int类型强转
 
+
+41. 始终使用属性property(get,set)
+
+42. 使用索引器indexer
+------------------------------------------------------------------------------
+class IndexedClass
+{
+    private string [] nameList = new string[10];
+    public string this[int index]
+    {
+        get{
+            return nameList[index];
+        }
+        set{
+            nameList[index] = value;
+        }
+    } 
+}  
+用class[index]访问数组属性
+-------------------------------------------------------------------------------
+43. const只能是值类型  readonly可以是其他类型【最好是使用readonly】
+
+44. 选择is或者as 操作符而不是做强制类型转换
+        is只应该在你无法使用as进行转换时，配合强转来使用，是一个判断
+        foreach要用强制转换来同时对值类型和引用类型的转换
+
+45. [Conditional("xxx")] 代替 #if xxx
 
