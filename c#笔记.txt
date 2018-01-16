@@ -165,3 +165,9 @@ class IndexedClass
 
 45. [Conditional("xxx")] 代替 #if xxx
 
+46. 始终为你的类重写toString()方法
+
+47. 结构存储数据，类表现行为
+
+48. 
+
