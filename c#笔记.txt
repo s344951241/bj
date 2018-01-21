@@ -76,7 +76,9 @@ Struct有性能优势，Class有面向对象的扩展优势
 
 32.  ==它是比较的栈里面的值是否相等(值比较)
      Equals它比较的是堆里面的值是否相等(引用地址值比较)
-     Object.ReferenceEquals(obj1,obj2)它是比较的是地址是否相等
+     Object.Equals执行Equals固定不重载
+     Object.ReferenceEquals(obj1,obj2) 是否引用同一个对象（对象ID），比较值时会装箱导致无法相等
+
 
 33. ILookup<TKey,TValue> 一键对应多个值
     IReadOnlyCollection<T>
@@ -169,5 +171,10 @@ class IndexedClass
 
 47. 结构存储数据，类表现行为
 
-48. 
+48. 使用恒定的原子值类型数据
 
+49. 把0设置为自然的默认类型，特殊情况下使用Flags特性的枚举类型必须确保0是所有缺省标记的值 None = 0
+位域【Flags】是一个值包含多个枚举值1,2,4,8,16不能是前几项的和  类集合交并 
+    ^去掉其中一个值 或 a = a&(~Enum.the)
+    |合并多个值
+    HasFlag（）是否包含某个值
