@@ -76,6 +76,7 @@ Struct有性能优势，Class有面向对象的扩展优势
 
 32.  ==它是比较的栈里面的值是否相等(值比较)
      Equals它比较的是堆里面的值是否相等(引用地址值比较)
+
      Object.Equals执行Equals固定不重载
      Object.ReferenceEquals(obj1,obj2) 是否引用同一个对象（对象ID），比较值时会装箱导致无法相等
 
@@ -178,3 +179,62 @@ class IndexedClass
     ^去掉其中一个值 或 a = a&(~Enum.the)
     |合并多个值
     HasFlag（）是否包含某个值
+
+50. 选择变量初始化而不是赋值语句（在构造函数里new）
+
+51. 构造函数中尽量减少调用某个函数，逻辑可以整理构造函数使出现链式调用
+
+52. 实现了IDisposable接口的类，需要释放要用using或try/finaly
+
+53. 当一个引用类型的局部变量在常规的函数调用中使用的非常频繁时，要把它作为对象的成员
+
+54. 拆箱和装箱最小化
+
+55. 托管资源【托管堆上分配的内存资源】和非托管资源【文件，网络连接，数据库连接等这些】的回收
+
+56. Dispose和析构函数只清理非托管资源不然会让其复活
+----------------------------------------------------------------------------------------------------
+public class MyResourceHog:IDisposable
+{
+    private bool _alreadyDisposed = false;
+
+    ~MyResourceHog()
+    {
+        Dispose(false);
+    }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(true);
+    }
+
+    protected virtual void Dispose(bool isDisposing)
+    {
+        if(_alreadyDisposed)
+            return;
+        if(isDisposing)
+        {
+            //TODO:free managed resources here;
+        }
+        //TODO:free unmanaged resources here;
+        _alreadyDisposed = true;
+    }
+}
+
+public class DerivedResourceHog:MyResourceHog
+{
+    private bool _disposed = false;
+    protected override void Dispose(bool isDisposing)
+    {
+        if(_disposed)
+            return;
+        if(isDisposing)
+        {
+            //TODO:free managed resources here;
+        }
+        //TODO:free unmanaged resources here;
+        base.Dispose(false);
+        _disposed = true;
+    }
+}
+-------------------------------------------------------------------------------------------------------
