@@ -1,0 +1,18 @@
+1. 字典：dic = {1:2,'xx':'vv'}
+
+2. if 条件:
+      执行。。。
+   elif 条件：
+      执行。。。
+   else：
+      执行。。。
+
+3. and 和 or
+
+4. while(条件):
+       执行...
+
+5. for item in dic:        ///item 是是key
+       执行。。。
+   for index in range(len(dic)):    ///index是序号
+       执行。。。
