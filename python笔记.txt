@@ -16,3 +16,7 @@
        执行。。。
    for index in range(len(dic)):    ///index是序号
        执行。。。
+
+6. range(n) 返回一个从0到n-1的数字列表
+
+7. 
