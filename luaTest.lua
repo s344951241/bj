@@ -1,3 +1,4 @@
+
 Person= {}
 
 function Person:init(o)
@@ -23,3 +24,14 @@ tab = {vv="vvv"}
 tab.__index = tab
 setmetatable(tab1,tab)
 print(tab1.vv)
+
+local function sum()
+	return 1
+end
+file = io.open("name.txt","a")
+print(file)
+
+local info = debug.getinfo(sum)
+for k,v in pairs(info) do
+	print(k,':',info[k])
+end
