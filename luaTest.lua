@@ -35,3 +35,6 @@ local info = debug.getinfo(sum)
 for k,v in pairs(info) do
 	print(k,':',info[k])
 end
+
+tab_df_f={[111] = {id= 111,name="111"},["2222"] ={}}
+print((tab_df_f)["2222"])
