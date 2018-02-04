@@ -102,3 +102,32 @@ class speaker():
 
 speak = speaker('vv','dsfdf')
 speak.speak()
+
+
+class sample(speaker,student):
+    a=''
+    def __init__(self,n,a,w,g,t):
+        student.__init__(self,n,a,w,g)
+        speaker.__init__(self,n,t)
+
+test = sample("tim",25,80,4,"python")
+test.speak()
+
+class Parent:
+    def myMethod(self):
+        print("调用父类方法")
+
+class Child(Parent):
+    def myMethod(self):
+        print("调用子类方法")
+
+c = Child()
+c.myMethod()
+
+print(os.getcwd())
+
+os.system('java')
+
+dir(os)
+#help(os)
+
