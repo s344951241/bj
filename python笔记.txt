@@ -41,4 +41,6 @@
 
 15. os.system('java')执行系统命令
 
-16. 
+16. 迭代字典：
+    for key in dict
+    for key,value in dict.items()
