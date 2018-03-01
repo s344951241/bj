@@ -27,14 +27,22 @@ CG中的矩阵float4x4是行优先的，Matrix4x4是列优先的
 
 顶点着色器包含的语义：POSITION，TANGENT，NORMAL，TEXCOORD0-3，COLOR
 
-shaderLab属性类型和CG变量类型的关系
+shaderLab属性类型和CG变量类型的关系：
 Color,Vector                   float4,half4,fixed4
 Range,Float                    float,half,fixed
 2D                             sampler2D
 Cube                           samplerCube
 3D                             sampler3D
 
-UnityCG.cginc中的常用函数
+
+UnityCG.cginc中一些常用的结构体：
+appdata_base  顶点着色器输入，顶点位置、顶点法线、第一组纹理坐标
+appdata_tan   顶点着色器输入，顶点位置、顶点切线、顶点法线、第一组纹理坐标
+appdata_full  顶点着色器输入，顶点位置[vertext:POSITION]、顶点切线[tangent:TANGENT]、顶点法线[normal:NORMAL]、四组纹理坐标[texcoord:TEXCOORD0...]
+appdata_img   顶点着色器输入，顶点位置、第一组纹理坐标
+v2f_img       顶点着色器输出，裁剪空间中的位置、纹理坐标
+
+UnityCG.cginc中的常用函数：
 float3 WorldSpaceViewDir(float4 v)  输入一个模型空间中的顶点位置，返回世界空间中从该点到摄像机的观察方向
 float3 ObjSpaceViewDir(float4 v)    输入一个模型空间中的顶点位置，返回模型空间中从该点到摄像机的观察方向
 float3 WorldSpaceLightDir(float4 v)   输入一个模型空间中的顶点位置，返回世界空间中从该点到光源的光照方向【向前渲染中】
@@ -42,3 +50,22 @@ float3 ObjSpaceLightDir(float4 v)     输入一个模型空间中的顶点位置
 float3 UnityObjectToWorldNormal(float3 norm)  把法线方向从模型空间变换到世界空间
 float3 UnityObjectToWorldDir(in float dir)    把方向矢量从模型空间变换到世界空间中
 float3 UnityWorldToObjectDir(float3 dir)      把方向矢量从世界空间变换到模型空间
+
+应用到顶点着色器的语义：
+POSITION->模型空间中顶点的位置，通常是float4类型
+NORMAL->顶点法线，float3
+TANGENT->顶点切线，float4
+TEXCOORDn->顶点的纹理坐标  float2或float4
+COLOR->顶点颜色  fixed4或float4
+
+顶点着色器到片元着色器的语义：
+SV_POSITION  ->  裁剪空间中的顶点坐标
+COLOR0->第一组顶点颜色
+COLOR1->第二组点点颜色
+TEXCOORD0~TEXCOORD7->用于输出纹理坐标
+
+片元着色器输出：
+SV_Target  等同于COLOR，输出值将会存储到渲染目标中
+
+一个语义可以使用的寄存器只能处理4个浮点值
+
