@@ -1,0 +1,44 @@
+法线变换->转置逆矩阵
+
+UNITY_MATRIX_MVP    模型空间到裁剪空间
+UNITY_MATRIX_MV     模型空间到观察空间
+UNITY_MATRIX_V      世界空间到观察空间
+UNITY_MATRIX_P      观察空间到裁剪空间
+UNITY_MATRIX_VP     世界空间到裁剪空间
+UNITY_MATRIX_T_MV   UNITY_MATRIX_MV的转置矩阵
+UNITY_MATRIX_IT_MV  UNITY_MATRIX_MV的逆转置【用于将法线从模型空间转到观察空间】
+_Object2Word        当前模型矩阵用于从模型空间转到世界空间
+_World2Object       _Object2World的逆矩阵，用于从世界空间转到模型空间
+
+
+_WorldSpaceCameraPos            float3    相机在世界空间的位置
+_ProjectionParams               float4    x=[1或-1] y=Near z=Far w=1.0+1.0/Far
+_ScreenParams                   float4    x=width y=height z=1.0+1.0/width w=1.0+1.0/height
+_ZBufferParams                  float4    x=1-Far/Near y=Far/Near z=x/Far  w=y/Far
+unity_OrthoParams               float4    x=width y=height z没有变化 w=1.0或0
+unity_CameraProjection          float4x4  摄像机的投影矩阵
+unity_CameraInvProjection       float4x4  摄像机的投影矩阵的逆矩阵
+unity_CameraWorldClipPlanes[6]  float4    摄像机6个裁剪平面在世界下的等式，左右下上近远  
+
+CG中的矩阵float4x4是行优先的，Matrix4x4是列优先的
+
+#pragma vertex name      
+#pragma fragment frag     定义哪个函数包含了顶点和片元着色器代码
+
+顶点着色器包含的语义：POSITION，TANGENT，NORMAL，TEXCOORD0-3，COLOR
+
+shaderLab属性类型和CG变量类型的关系
+Color,Vector                   float4,half4,fixed4
+Range,Float                    float,half,fixed
+2D                             sampler2D
+Cube                           samplerCube
+3D                             sampler3D
+
+UnityCG.cginc中的常用函数
+float3 WorldSpaceViewDir(float4 v)  输入一个模型空间中的顶点位置，返回世界空间中从该点到摄像机的观察方向
+float3 ObjSpaceViewDir(float4 v)    输入一个模型空间中的顶点位置，返回模型空间中从该点到摄像机的观察方向
+float3 WorldSpaceLightDir(float4 v)   输入一个模型空间中的顶点位置，返回世界空间中从该点到光源的光照方向【向前渲染中】
+float3 ObjSpaceLightDir(float4 v)     输入一个模型空间中的顶点位置，返回模型空间中从该点到光源的光照方向【向前渲染中】
+float3 UnityObjectToWorldNormal(float3 norm)  把法线方向从模型空间变换到世界空间
+float3 UnityObjectToWorldDir(in float dir)    把方向矢量从模型空间变换到世界空间中
+float3 UnityWorldToObjectDir(float3 dir)      把方向矢量从世界空间变换到模型空间
