@@ -40,3 +40,8 @@ tab_df_f={[111] = {id= 111,name="111"},["2222"] ={}}
 print((tab_df_f)["2222"])
 
 print("ssss"=="ssss")
+
+
+for i=1,9,1 do
+	print(i)
+end

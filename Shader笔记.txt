@@ -69,3 +69,41 @@ SV_Target  等同于COLOR，输出值将会存储到渲染目标中
 
 一个语义可以使用的寄存器只能处理4个浮点值
 
+应该在不透明物体渲染完之后再渲染半透明物体
+=》①先渲染所有不透明物体，并开启他们的深度测试和深度写入
+   ②把半透明物体按它们距离摄像机的远近排序，然后按照从后往前的顺序渲染这些半透明物体，
+   并开启它们的深度测试，但关闭深度写入
+
+ShaderLab中的混合因子
+One 1
+Zero 0
+SrcColor 源颜色值(RGB分量或A分量)
+SrcAlpha 源颜色A值
+DstColor 目标颜色值(RGB分量或A分量)
+DstAlpha 目标颜色A值
+OneMinusSrcColor 1-源颜色值(RGB分量或A分量)
+OneMinusSrcAlpha 1-源颜色A值
+OneMinusDstColor 1-目标颜色值(RGB分量或A分量)
+OneMinusDstAlpha 1-目标颜色A值
+
+
+//正常
+Blend SrcAlpha OneMinusSrcAlpha
+//柔和叠底
+Blend OneMinusDstColor One
+//正片叠底
+Blend DstColor Zero
+//两倍相乘
+Blend DstColor SrcColor
+//变暗
+BlendOp Min
+Blend One One
+//变亮
+BlendOp Max
+Blend One One
+//滤色
+Blend OneMinusDstColor One
+//等同于
+Blend One OneMinusSrcColor
+//线性减淡
+Blend One One
