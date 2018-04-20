@@ -1,4 +1,4 @@
-法线变换->转置逆矩阵
+﻿法线变换->转置逆矩阵
 
 UNITY_MATRIX_MVP    模型空间到裁剪空间
 UNITY_MATRIX_MV     模型空间到观察空间
@@ -74,7 +74,7 @@ SV_Target  等同于COLOR，输出值将会存储到渲染目标中
    ②把半透明物体按它们距离摄像机的远近排序，然后按照从后往前的顺序渲染这些半透明物体，
    并开启它们的深度测试，但关闭深度写入
 
-ShaderLab中的混合因子
+ShaderLab中的混合因子(Blend)：默认是Off
 One 1
 Zero 0
 SrcColor 源颜色值(RGB分量或A分量)
@@ -107,3 +107,67 @@ Blend OneMinusDstColor One
 Blend One OneMinusSrcColor
 //线性减淡
 Blend One One
+
+
+
+SubShader标签：
+	Queue:使用队列标签来确定对象的绘制顺序
+		Background,1000,最先被调用的渲染，通常渲染背景
+		Geometry(default),2000,默认值，大多数物体使用此队列，渲染不透明物体
+		AlphaTest,2450,透明测试的队列
+		Transparent,3000,从后往前渲染，alpha混合
+		Overlay,4000,最后呈现的效果
+
+		可以有xxx+1这样的存在
+
+
+	RenderType 渲染类型:将shaders分类为多个预定义组，Unity可以运行时替换符合特定RenderType的Shader
+	Shader更换是从脚本使用 Camera.RenderWithShader 或 Camera.SetReplacementShader 函数来完成的。（参数是"RenderType"）替换RenderType相同的其他Shader
+
+		Opaque:用于大多数着色器（法线着色器、自发光着色器、反射着色器以及地形的着色器）
+		Transparent:用于半透明着色器
+		TransparentCutout:蒙皮透明着色器
+		Background:Skybox shaders
+		Overlay:GUITexture,光晕,闪光着色器
+		TreeOpaque:地形引擎中的树皮
+		TreeTransparentCutout: terrain engine tree leaves.
+		TreeBillboard: terrain engine billboarded trees. Grass: terrain
+		GrassBillboard: terrain engine billboarded grass
+
+	DisableBatching: 禁用批处理
+		True:始终禁用此着色器的批处理
+		False:不禁用批处理;这是默认值
+		LODFading:当LOD衰减活动时禁用批处理;主要用于树
+
+	ForceNoShadowCasting:强制无阴影投射
+		True:渲染的对象将永远不会投射阴影
+
+	IgnoreProjector:忽略投影机
+		True:对象不会受到投影机的影响,对半透明对象最有用
+
+	CanUseSpriteAtlas:可以使用Sprite图集
+		如果shader用于sprite，则将CanUseSpriteAtlas标记设置为“False”，并且当它们打包到地图集时不会工作??????
+
+	PreviewType:预览模型
+		指示material inspector预览应如何显示材质。 默认情况下，材质显示为球体，但PreviewType也可以设置为“Plane”（显示为2D）或“Skybox”（将显示为天空盒）
+
+Cull剔除
+	Cull Off不剔除，双面显示, Cull Back渲染正面背面不渲染, Cull Front渲染背面正面不渲染
+	默认是Cull Back
+
+ZWrite 深度写入
+	ZWrite On 开启深度写入，ZWrite Off 关闭深度写入 
+	默认是ZWrite On
+
+ZTest 深度测试
+	Greater,GEqual,Less,LEqual,Equal,NotEqual,Always,Never,Off  
+	默认值是LEqual, 
+	ZTest Off等同于ZTest Always
+
+1.深度测试通过，深度写入开启：写入深度缓冲区，写入颜色缓冲区；
+2.深度测试通过，深度写入关闭：不写深度缓冲区，写入颜色缓冲区；
+3.深度测试失败，深度写入开启：不写深度缓冲区，不写颜色缓冲区；
+4.深度测试失败，深度写入关闭：不写深度缓冲区，不写颜色缓冲区；
+[先测试后写入,测试控制深度缓冲区和颜色缓冲区，深度值控制深度缓冲区]
+
+
