@@ -45,3 +45,17 @@ print("ssss"=="ssss")
 for i=1,9,1 do
 	print(i)
 end
+
+
+function argsTest(...)
+	for a,v in ipairs(arg) do
+		print(v)
+	end
+end
+
+function argsTest2(...)
+	
+	argsTest(...)
+end
+
+argsTest2(1,2,3,4)

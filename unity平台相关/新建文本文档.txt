@@ -1,0 +1,2 @@
+1.IL2CPP打包方式需要下载ndk
+2.unity remote调试
