@@ -135,6 +135,33 @@ public class DepthFirstSearch
         }
     }
 
+    private void dfsLoop(Graph g, int v)
+    {
+        Stack<int> stack = new Stack<int>();
+        stack.Push(v);
+        m_marked[v] = true;
+        UnityEngine.Debug.LogError("--->" + v);
+        while (stack.Count > 0)
+        {
+            int index = stack.Peek();
+            int i;
+            for (i = 0; i < g.Adj(index).Count; i++)
+            {
+                if (!m_marked[g.Adj(index)[i]])
+                {
+                    m_marked[g.Adj(index)[i]] = true;
+                    UnityEngine.Debug.LogError("--->" + g.Adj(index)[i]);
+                    stack.Push(g.Adj(index)[i]);
+                    break;
+                }
+            }
+            if (i == g.Adj(index).Count)
+            {
+                stack.Pop();
+            }
+        }
+        
+    }
     public bool marked(int w)
     {
         return m_marked[w];
@@ -210,15 +237,20 @@ public class BreathFirstPaths
     {
         Queue<int> queue = new Queue<int>();
         marked[s] = true;
+        UnityEngine.Debug.LogError("--->" + s);
         queue.Enqueue(s);
         while (!(queue.Count == 0))
         {
             int v = queue.Dequeue();
             foreach (int w in g.Adj(v))
             {
-                edgeTo[w] = v;
-                marked[w] = true;
-                queue.Enqueue(w);
+                if (!marked[w])
+                {
+                    edgeTo[w] = v;
+                    marked[w] = true;
+                    UnityEngine.Debug.LogError("--->" + w);
+                    queue.Enqueue(w);
+                }
             }
         }
 
